@@ -9,8 +9,7 @@ import {store} from './store';
 class App extends React.Component {
 
   render(){
-    const count = store.getState().count;
-    const {increment, decrement} = this.props;
+    const {increment, decrement, count} = this.props;
 
     return (
         <div className="counter">
