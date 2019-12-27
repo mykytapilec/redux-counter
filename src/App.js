@@ -7,33 +7,20 @@ import {incrementAction, decrementAction} from './actions';
 import {store} from './store';
 
 class App extends React.Component {
-  constructor(props){
-    super(props);
-
-    this.increment.bind(this);
-    this.decrement.bind(this);
-  }
-
-  increment(){
-  	store.dispatch(incrementAction);
-  }
-
-  decrement(){
-  	store.dispatch(decrementAction);
-  }
 
   render(){
-  	const count = store.getState().count;
+    const count = store.getState().count;
+    const {increment, decrement} = this.props;
 
-  	return (
-  			<div className="counter">
-  				<span className="count">{count}</span>
-  				<div className="buttons">
-  					<button className="decrement" onClick={this.decrement}>-</button>
-  					<button className="increment" onClick={this.increment}>+</button>
-  				</div>
-  			</div>
-  		);
+    return (
+        <div className="counter">
+          <span className="count">{count}</span>
+          <div className="buttons">
+            <button className="decrement" onClick={decrement}>-</button>
+            <button className="increment" onClick={increment}>+</button>
+          </div>
+        </div>
+      );
   }
 } 
 
@@ -41,6 +28,14 @@ const mapStateToProps = store => {
   return { count: store.count };
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    increment: () => store.dispatch(incrementAction),
+    decrement: () => store.dispatch(decrementAction)
+  }
+}
+
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(App);
